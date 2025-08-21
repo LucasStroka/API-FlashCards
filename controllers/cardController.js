@@ -73,18 +73,24 @@ const deleteCard = (req, res) => {
     res.status(200).json(`Deletado com Sucesso ID ${idCard+1}`)
 }
 
+// id: idCard++,
+// pergunta,
+// resposta,
+// idDeck: idBaralho
+
 const getCardID = (req, res) => {
     const { id } = req.params
     const idArrays = []
 
     for (let i = 0; i < cards.length; i++) {
-    if (cards[i].idBaralho === id) {
+        if (parseInt(cards[i].idDeck) === parseInt(id)) {
             idArrays.push(cards[i])
         }
     }
+    
     res.status(200).json(idArrays)
 }
-// TODO/ Search de ID individual
+
 
 module.exports = {
     createFlashCard,
