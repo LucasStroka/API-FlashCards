@@ -91,11 +91,25 @@ const getCardID = (req, res) => {
     res.status(200).json(idArrays)
 }
 
+const getCardQuestion = (req, res) => {
+    const { pergunta } = req.body
+    const idArrays = []
+
+    for (let i = 0; i < cards.length; i++) {
+        if (pergunta === cards[i].pergunta) {
+            idArrays.push(cards[i])
+        }
+    }
+
+    res.status(200).json(idArrays)
+}
+
 
 module.exports = {
     createFlashCard,
     getCard,
     updateCard,
     deleteCard,
-    getCardID
+    getCardID,
+    getCardQuestion
 }
