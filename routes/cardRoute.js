@@ -8,6 +8,9 @@ router.post('/', cardController.createFlashCard)
 // Route para listar os flashCards
 router.get('/', cardController.getCard)
 
+// Route para listar os Cards por ID
+router.get('/getCardID/:id', cardController.getCardID)
+
 // Route para Atualizar um Flashcard
 router.put('/:id', cardController.updateCard)
 

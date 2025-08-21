@@ -1,4 +1,4 @@
-let {deck, cards, idCard, idDeck} = require('../dataBase/data')
+let {deck, cards, idCard} = require('../dataBase/data')
 
 // ID
 // pergunta
@@ -11,16 +11,18 @@ const createFlashCard = (req, res) => {
         return res.status(404).json({error : "Body Incompleto"})
     }
 
-    const idDeck = deck.findIndex(d => d.id == parseInt(idBaralho))
+    let idDeck = deck.findIndex(d => d.id == parseInt(idBaralho))
     if (idDeck === -1) {
         return res.status(404).json({erro: "Deck não encontrado"})
     }
+
+    let idDeckCreate = parseInt(idDeck++)
 
     const newCards = {
         id: idCard++,
         pergunta,
         resposta,
-        idDeck
+        idDeck: idBaralho
     }
 
     cards.push(newCards)
@@ -54,7 +56,7 @@ const updateCard = (req, res) => {
     cards[id] = {
         pergunta,
         resposta,
-        idDeck : parseInt(idDeck)
+        idDeck : parseInt(idDeck++)
     }
 
     res.status(200).json(cards[id])
@@ -71,15 +73,23 @@ const deleteCard = (req, res) => {
     res.status(200).json(`Deletado com Sucesso ID ${idCard+1}`)
 }
 
-// const getCardByDeck = (req, res) => {
+const getCardID = (req, res) => {
+    const { id } = req.params
+    const idArrays = []
 
-// }
-
+    for (let i = 0; i < cards.length; i++) {
+    if (cards[i].idBaralho === id) {
+            idArrays.push(cards[i])
+        }
+    }
+    res.status(200).json(idArrays)
+}
+// TODO/ Search de ID individual
 
 module.exports = {
     createFlashCard,
     getCard,
     updateCard,
     deleteCard,
-    // getCardByDeck
+    getCardID
 }

@@ -38,18 +38,20 @@ const updateDeck = (req, res) => {
 
 const deleteDeck = (req, res) => {
     const {id} = req.params
-    const deckIndex = deck.findIndex(d => d.id == id)
 
+    const deckIndex = deck.findIndex(d => d.id == id)
     if (deckIndex === -1) {
         return res.status(404).json({error: "Id não encontrado"})
     }
 
-    deck.splice(deckIndex, 1)
-    for (let i = 0; i < cards.length; i++) {
-        cards[i].splice(i, 1)
+    deck.splice(deckIndex, 1)    
+    for (let i = cards.length - 1; i >= 0; i--) {
+        if (cards[i].idDeck == id) {
+            cards.splice(i, 1);
+        }
     }
 
-    res.status(200).json({conclude: "Concluido"})
+    res.status(200).json({"Concluido" : id})
 }
 
 module.exports = {
