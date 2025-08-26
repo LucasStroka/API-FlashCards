@@ -1,4 +1,5 @@
 let {deck, idDeck, cards} = require('../dataBase/data')
+const { search } = require('../routes/cardRoute')
 
 const createDeck = (req, res) =>{
     const {titulo} = req.body
@@ -54,9 +55,23 @@ const deleteDeck = (req, res) => {
     res.status(200).json({"Concluido" : id})
 }
 
+const searchID = (req, res) => {
+    const { id } = req.params
+    const idArrays = []
+
+    for (let i = 0; i < cards.length; i++) {
+        if (parseInt(cards[i].idDeck) === parseInt(id)) {
+            idArrays.push(cards[i])
+        }
+    }
+    
+    res.status(200).json(idArrays)
+}
+
 module.exports = {
     createDeck,
     getDecks,
     updateDeck,
     deleteDeck,
+    searchID
 }

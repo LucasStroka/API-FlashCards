@@ -14,6 +14,10 @@ router.put('/:id', deckController.updateDeck);
 // Route para Deletar um Deck
 router.delete('/:id', deckController.deleteDeck);
 
+// Route para listar os Cards por ID
+router.get('/searchID/:id', deckController.searchID)
+
+
 // Route para Listar todas as cartas do deck
 // router.get('/:id', deckController.getCardByDeck)
 
